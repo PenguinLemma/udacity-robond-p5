@@ -7,19 +7,17 @@ Home Service Robot - Final project of the Udacity Robotics Software Engineer Nan
 
 ## Instructions
 
-See some notes on how to setup this project working on Melodic here: [Melodic setup](doc/MELODIC_SETUP.md).
-
 1. Launching
 ```shell
-source launch.$TERMINAL $ROS_DISTRO
+source src/scripts/launch.$TERMINAL
 ```
 where `TERMINAL` can be `bash`, `sh` or `zsh` and `ROS_DISTRO` can be `melodic` or `kinetic`.
 In the case of not giving any arguments, `melodic` will be taken as default. `ROS_DISTRO` is not case-sensitive.
 
 Launching can also be done as follows:
 ```shell
-chmod +x launch.$TERMINAL
-./launch.$TERMINAL
+chmod +x src/scripts/launch.$TERMINAL
+./src/scripts/launch.$TERMINAL
 ```
 
 2. Terminating
