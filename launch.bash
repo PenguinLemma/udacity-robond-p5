@@ -16,6 +16,6 @@ then
     return 1
 fi
 
-LAUNCHER="script/$ROS_DISTRO/launch.bash"
+LAUNCHER="src/scripts/$ROS_DISTRO/launch.bash"
 chmod +x "$LAUNCHER"
 ./"$LAUNCHER"
