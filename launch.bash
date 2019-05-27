@@ -3,7 +3,7 @@
 if [ $# -eq 0 ]
 then
     echo "No arguments supplied. Melodic assumed as default ROS distribution."
-    ROS_DISTRO="melodic"
+    ROS_DISTRO="kinetic"
 else
     ROS_DISTRO=$1
 fi
