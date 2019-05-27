@@ -7,6 +7,8 @@ Home Service Robot - Final project of the Udacity Robotics Software Engineer Nan
 
 ## Instructions
 
+Check out the setup for the Udacity Workspace [here](doc/UDACITY_WS_SETUP.md).
+
 1. Launching
 ```shell
 source src/scripts/launch.$TERMINAL
