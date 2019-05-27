@@ -7,6 +7,8 @@ Home Service Robot - Final project of the Udacity Robotics Software Engineer Nan
 
 ## Instructions
 
+See some notes on how to setup this project working on Melodic here: [Melodic setup](doc/MELODIC_SETUP.md).
+
 1. Launching
 ```shell
 source launch.$TERMINAL $ROS_DISTRO
