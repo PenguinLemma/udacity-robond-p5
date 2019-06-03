@@ -24,18 +24,21 @@ int main(int argc, char** argv)
 
     pickup_goal.target_pose.header.frame_id = "map";
     pickup_goal.target_pose.header.stamp = ros::Time::now();
-    pickup_goal.target_pose.pose.position.x = 4.0;
-    pickup_goal.target_pose.pose.position.y = 6.0;
+    pickup_goal.target_pose.pose.position.x = 2.0;
+    pickup_goal.target_pose.pose.position.y = 1.0;
     pickup_goal.target_pose.pose.orientation.w = 1.0;
 
     ROS_INFO("Sending pick-up position as first goal");
     action_client.sendGoal(pickup_goal);
 
     action_client.waitForResult();
+  
+    bool pickup_reached = false;
 
     if(action_client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
     {
         ROS_INFO("The robot reached the pick-up point");
+        pickup_reached = true;
     }
     else
     {
@@ -43,29 +46,32 @@ int main(int argc, char** argv)
         action_client.cancelAllGoals();
     }
 
-    ros::Duration(5.0).sleep();
-    ROS_INFO("Virtual object picked up");
-
-    move_base_msgs::MoveBaseGoal dropoff_goal;
-
-    dropoff_goal.target_pose.header.frame_id = "map";
-    dropoff_goal.target_pose.header.stamp = ros::Time::now();
-    dropoff_goal.target_pose.pose.position.x = 4.0;
-    dropoff_goal.target_pose.pose.position.y = 6.0;
-    dropoff_goal.target_pose.pose.orientation.w = 1.0;
-
-    ROS_INFO("Sending drop-off position as second goal");
-    action_client.sendGoal(dropoff_goal);
-
-    action_client.waitForResult();
-
-    if(action_client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+    if (pickup_reached)
     {
-        ROS_INFO("The robot reached the drop-off point");
-    }
-    else
-    {
-        ROS_INFO("The robot failed to reach the drop-off point");
+        ros::Duration(5.0).sleep();
+        ROS_INFO("Virtual object picked up");
+
+        move_base_msgs::MoveBaseGoal dropoff_goal;
+
+        dropoff_goal.target_pose.header.frame_id = "map";
+        dropoff_goal.target_pose.header.stamp = ros::Time::now();
+        dropoff_goal.target_pose.pose.position.x = 0.0;
+        dropoff_goal.target_pose.pose.position.y = 3.0;
+        dropoff_goal.target_pose.pose.orientation.w = 1.0;
+
+        ROS_INFO("Sending drop-off position as second goal");
+        action_client.sendGoal(dropoff_goal);
+
+        action_client.waitForResult();
+
+        if(action_client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+        {
+            ROS_INFO("The robot reached the drop-off point");
+        }
+        else
+        {
+            ROS_INFO("The robot failed to reach the drop-off point");
+        }
     }
     return 0;
 }
