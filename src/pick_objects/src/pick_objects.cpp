@@ -32,7 +32,7 @@ int main(int argc, char** argv)
     action_client.sendGoal(pickup_goal);
 
     action_client.waitForResult();
-  
+
     bool pickup_reached = false;
 
     if(action_client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
