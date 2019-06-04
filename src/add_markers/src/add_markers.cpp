@@ -6,7 +6,7 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "add_markers");
     ros::NodeHandle nh;
     ros::Duration five(5.0);
-    ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker");
+    ros::Publisher marker_pub = nh.advertise<visualization_msgs::Marker>("visualization_marker", 1);
 
     // Set the shape we want to use for the marker
     uint8_t shape = visualization_msgs::Marker::CUBE;
