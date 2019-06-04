@@ -29,7 +29,7 @@ int main(int argc, char** argv)
 
     marker.scale.x = 1.0;
     marker.scale.y = 1.0;
-    marker.scale.z = 0.5;
+    marker.scale.z = 1.0;
 
     marker.color.r = 0.0;
     marker.color.g = 0.0;
