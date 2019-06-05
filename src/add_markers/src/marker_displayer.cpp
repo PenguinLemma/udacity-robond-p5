@@ -3,14 +3,18 @@
 namespace plemma
 {
 
-void MarkerDisplayer::Display(MarkerPose const & pickup, MarkerPose const & dropoff)
+MarkerDisplayer::MarkerDisplayer(MarkerPose const & pickup, MarkerPose const & dropoff) :
+    pickup_pose_{pickup},
+    dropoff_pose_{dropoff}
+{}
+
+void MarkerDisplayer::Display()
 {
     ros::NodeHandle nh;
-    ros::Publisher marker_pub =
-        nh.advertise<visualization_msgs::Marker>("visualization_marker", 1);
+    marker_publisher_ = nh.advertise<visualization_msgs::Marker>("visualization_marker", 1);
 
     // Wait until there is some subscriber
-    while (marker_pub.getNumSubscribers() < 1)
+    while (marker_publisher_.getNumSubscribers() < 1)
     {
         if(!ros::ok())
         {
@@ -22,15 +26,15 @@ void MarkerDisplayer::Display(MarkerPose const & pickup, MarkerPose const & drop
 
     // Create and fill in marker for pick-up zone
     visualization_msgs::Marker pickup_marker;
-    FillInMarker(pickup, pickup_marker);
+    FillInMarker(pickup_pose_, pickup_marker);
 
     pickup_marker.action = visualization_msgs::Marker::ADD;
-    marker_pub.publish(pickup_marker);
+    marker_publisher_.publish(pickup_marker);
 
     WaitUntilPickUpMarkerShouldBeRemoved();
 
     pickup_marker.action = visualization_msgs::Marker::DELETE;
-    marker_pub.publish(pickup_marker);
+    marker_publisher_.publish(pickup_marker);
 
     // Wait while the pretended pick-up process happens
     ros::Duration(5.0).sleep();
@@ -38,10 +42,10 @@ void MarkerDisplayer::Display(MarkerPose const & pickup, MarkerPose const & drop
     WaitUntilDropOffMarkerShouldBeShown();
     // Create and fill in marker for drop-off zone
     visualization_msgs::Marker dropoff_marker;
-    FillInMarker(dropoff, dropoff_marker);
+    FillInMarker(dropoff_pose_, dropoff_marker);
 
     dropoff_marker.action = visualization_msgs::Marker::ADD;
-    marker_pub.publish(dropoff_marker);
+    marker_publisher_.publish(dropoff_marker);
 }
 
 void MarkerDisplayer::FillInMarker(MarkerPose const & pose, visualization_msgs::Marker & marker)

@@ -25,13 +25,18 @@ struct MarkerPose
 class MarkerDisplayer
 {
 public:
-    virtual MarkerDisplayer(){}
+    MarkerDisplayer(MarkerPose const & pickup, MarkerPose const & dropoff);
+
     virtual ~MarkerDisplayer(){}
-    void Display(MarkerPose const & pickup, MarkerPose const & dropoff);
+    void Display();
     void FillInMarker(MarkerPose const & pose, visualization_msgs::Marker & marker);
 private:
     virtual void WaitUntilPickUpMarkerShouldBeRemoved();
     virtual void WaitUntilDropOffMarkerShouldBeShown();
+
+    ros::Publisher marker_publisher_;
+    MarkerPose pickup_pose_;
+    MarkerPose dropoff_pose_;
 };
 
 // namespace plemma
