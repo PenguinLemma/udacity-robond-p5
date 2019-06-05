@@ -1,9 +1,9 @@
 #include "marker_displayer.hpp"
 
-namespace plemma
+namespace plemma::hsr
 {
 
-MarkerDisplayer::MarkerDisplayer(MarkerPose const & pickup, MarkerPose const & dropoff) :
+MarkerDisplayer::MarkerDisplayer(SimplifiedPose const & pickup, SimplifiedPose const & dropoff) :
     pickup_pose_{pickup},
     dropoff_pose_{dropoff}
 {}
@@ -48,7 +48,7 @@ void MarkerDisplayer::Display()
     marker_publisher_.publish(dropoff_marker);
 }
 
-void MarkerDisplayer::FillInMarker(MarkerPose const & pose, visualization_msgs::Marker & marker)
+void MarkerDisplayer::FillInMarker(SimplifiedPose const & pose, visualization_msgs::Marker & marker)
 {
     marker.ns = "pickup_marker";
     marker.id = 0;
@@ -90,4 +90,4 @@ void MarkerDisplayer::WaitUntilDropOffMarkerShouldBeShown()
 {
 }
 
-} // namespace plemma
+} // namespace plemma::hsr

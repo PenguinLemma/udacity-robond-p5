@@ -1,14 +1,38 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
+#include "marker_displayer.hpp"
+#include "robot_dependent_marker_displayer.hpp"
+#include "home_service_robot_common.hpp"
 
 int main(int argc, char** argv)
 {
     ros::init(argc, argv, "add_markers");
 
-    plemma::MarkerPose pickup{2.0, 1.0, 0.0}; // x, y, yaw_in_deg
-    plemma::MarkerPose dropoff{0.0, 3.0, 45.0};
-    plemma::MarkerDisplayer displayer(pickup, dropoff);
-    displayer.Display();
+    // Check parameter configuration
+    ros::NodeHandle nh;
+    plemma::hsr::SimplifiedPose pickup;
+    plemma::hsr::SimplifiedPose dropoff;
+    if (!ReadPickUpAndDropOffZones(pickup, dropoff))
+        return 0;
+
+    // Get mode: default to "track_robot" ( true )
+    bool track_robot;
+    if (!nh.getParam("/plemma/hsr/add_markers/track_robot", track_robot))
+    {
+        track_robot = true;
+    }
+
+    // Display the markers
+    if (track_robot)
+    {
+        plemma::hsr::MarkerDisplayer displayer(pickup, dropoff);
+        displayer.Display();
+    }
+    else
+    {
+        plemma::hsr::RobotDependentMarkerDisplayer displayer(pickup, dropoff);
+        displayer.Display();
+    }
 
     return 0;
 }

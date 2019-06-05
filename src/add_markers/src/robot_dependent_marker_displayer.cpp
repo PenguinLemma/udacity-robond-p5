@@ -1,9 +1,9 @@
 #include "robot_dependent_marker_displayer.hpp"
 
-namespace plemma
+namespace plemma::hsr
 {
 
-RobotDependentMarkerDisplayer::RobotDependentMarkerDisplayer(MarkerPose const & pickup, MarkerPose const & dropoff) :
+RobotDependentMarkerDisplayer::RobotDependentMarkerDisplayer(SimplifiedPose const & pickup, SimplifiedPose const & dropoff) :
     pickup_pose_{pickup},
     dropoff_pose_{dropoff},
     has_robot_reached_pickup_zone{false},
@@ -53,7 +53,7 @@ void RobotDependentMarkerDisplayer::TrackingCallback(nav_msgs::Odometry const & 
 
 constexpr bool RobotDependentMarkerDisplayer::IsRobotInPose(
     nav_msgs::Odometry const & odom,
-    MarkerPose const & pose)
+    SimplifiedPose const & pose)
 {
     double diff_x = pose.x - odom.pose.pose.position.x;
     double diff_y = pose.y - odom.pose.pose.position.y;
@@ -61,4 +61,4 @@ constexpr bool RobotDependentMarkerDisplayer::IsRobotInPose(
     return sq_distance_to_pickup < constants::sq_distance_threshold;
 }
 
-} // namespace plemma
+} // namespace plemma::hsr
