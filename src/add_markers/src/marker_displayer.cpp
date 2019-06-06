@@ -1,8 +1,5 @@
 #include "marker_displayer.hpp"
 
-namespace plemma::hsr
-{
-
 MarkerDisplayer::MarkerDisplayer(SimplifiedPose const & pickup, SimplifiedPose const & dropoff) :
     pickup_pose_{pickup},
     dropoff_pose_{dropoff}
@@ -18,7 +15,7 @@ void MarkerDisplayer::Display()
     {
         if(!ros::ok())
         {
-            return 0;
+            return;
         }
         ROS_WARN_ONCE("Please create a subscriber to the marker");
         sleep(1);
@@ -54,19 +51,19 @@ void MarkerDisplayer::FillInMarker(SimplifiedPose const & pose, visualization_ms
     marker.id = 0;
     marker.type = visualization_msgs::Marker::CUBE;
 
-    marker.target_pose.header.frame_id = "map";
-    marker.target_pose.header.stamp    = ros::Time::now();
+    marker.header.frame_id = "map";
+    marker.header.stamp    = ros::Time::now();
 
-    marker.target_pose.pose.position.x = pose.x;
-    marker.target_pose.pose.position.y = pose.y;
-    marker.target_pose.pose.position.z = 0.0;
+    marker.pose.position.x = pose.x;
+    marker.pose.position.y = pose.y;
+    marker.pose.position.z = 0.0;
 
     double yaw_in_rad = 2.0 * pose.yaw_in_deg * constants::kPi / 180.0;
 
-    marker.target_pose.pose.orientation.x = 0.0;
-    marker.target_pose.pose.orientation.y = 0.0;
-    marker.target_pose.pose.orientation.z = std::sin(0.5 * yaw_in_rad);
-    marker.target_pose.pose.orientation.w = std::cos(0.5 * yaw_in_rad);
+    marker.pose.orientation.x = 0.0;
+    marker.pose.orientation.y = 0.0;
+    marker.pose.orientation.z = std::sin(0.5 * yaw_in_rad);
+    marker.pose.orientation.w = std::cos(0.5 * yaw_in_rad);
 
     marker.scale.x = 1.0;
     marker.scale.y = 1.0;
@@ -90,4 +87,3 @@ void MarkerDisplayer::WaitUntilDropOffMarkerShouldBeShown()
 {
 }
 
-} // namespace plemma::hsr

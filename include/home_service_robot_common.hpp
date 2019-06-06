@@ -2,9 +2,6 @@
 
 #include <ros/ros.h>
 
-namespace plemma::hsr
-{
-
 namespace constants
 {
 constexpr double kPi = 3.14159265358979323846;
@@ -12,6 +9,7 @@ constexpr double kMarkerRedComponent = 0.0;
 constexpr double kMarkerGreenComponent = 0.0;
 constexpr double kMarkerBlueComponent = 1.0;
 constexpr double kMarkerColorAlpha = 1.0;
+constexpr double kSquaredDistanceThreshold = 0.04;
 } // namespace constants
 
 struct SimplifiedPose
@@ -47,5 +45,3 @@ inline bool ReadPickUpAndDropOffZones(SimplifiedPose & pickup, SimplifiedPose & 
     }
     return true;
 }
-
-} // namespace plemma::hsr

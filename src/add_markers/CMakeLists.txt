@@ -35,16 +35,18 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
+  include
+  ../../include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(add_markers_node src/add_markers.cpp)
+add_executable(add_markers_node src/add_markers.cpp src/marker_displayer.cpp src/robot_dependent_marker_displayer.cpp)
 
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_node
+target_link_libraries(add_markers_node
   ${catkin_LIBRARIES}
 )

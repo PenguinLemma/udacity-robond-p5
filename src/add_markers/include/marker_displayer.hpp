@@ -5,15 +5,12 @@
 
 #include "home_service_robot_common.hpp"
 
-namespace plemma::hsr
-{
-
 class MarkerDisplayer
 {
 public:
     MarkerDisplayer(SimplifiedPose const & pickup, SimplifiedPose const & dropoff);
 
-    virtual ~MarkerDisplayer(){}
+    virtual ~MarkerDisplayer() = default;
     void Display();
     void FillInMarker(SimplifiedPose const & pose, visualization_msgs::Marker & marker);
 private:
@@ -25,4 +22,3 @@ private:
     SimplifiedPose dropoff_pose_;
 };
 
-} // namespace plemma::hsr

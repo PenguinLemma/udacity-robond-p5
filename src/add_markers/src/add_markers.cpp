@@ -10,8 +10,8 @@ int main(int argc, char** argv)
 
     // Check parameter configuration
     ros::NodeHandle nh;
-    plemma::hsr::SimplifiedPose pickup;
-    plemma::hsr::SimplifiedPose dropoff;
+    SimplifiedPose pickup;
+    SimplifiedPose dropoff;
     if (!ReadPickUpAndDropOffZones(pickup, dropoff))
         return 0;
 
@@ -25,12 +25,12 @@ int main(int argc, char** argv)
     // Display the markers
     if (track_robot)
     {
-        plemma::hsr::MarkerDisplayer displayer(pickup, dropoff);
+        MarkerDisplayer displayer{pickup, dropoff};
         displayer.Display();
     }
     else
     {
-        plemma::hsr::RobotDependentMarkerDisplayer displayer(pickup, dropoff);
+        RobotDependentMarkerDisplayer displayer{pickup, dropoff};
         displayer.Display();
     }
 
