@@ -6,4 +6,4 @@ xterm -e " source devel/setup.zsh; roslaunch turtlebot_gazebo amcl_demo.launch "
 sleep 5
 xterm -e " source devel/setup.zsh; roslaunch turtlebot_rviz_launchers view_navigation.launch " &
 sleep 5
-xterm -e " source devel/setup.zsh; rosrun add_markers add_markers_node "
+xterm -e " source devel/setup.bash; roslaunch add_markers add_markers.launch "

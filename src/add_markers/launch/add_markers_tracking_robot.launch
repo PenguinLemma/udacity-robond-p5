@@ -1,0 +1,15 @@
+<launch>
+    <!-- PICK-UP ZONE -->
+    <param name="/plemma/hsr/pickup_pose_x"       value="2.0" />
+    <param name="/plemma/hsr/pickup_pose_y"       value="1.0" />
+    <!-- omit yaw angle param to see that the node reacts well to that -->
+    <!-- by setting it default to 0 -->
+    <!-- DROP-OFF ZONE -->
+    <param name="/plemma/hsr/dropoff_pose_x"       value="0.0" />
+    <param name="/plemma/hsr/dropoff_pose_y"       value="3.0" />
+    <param name="/plemma/hsr/dropoff_pose_yaw_deg" value="30" />
+    <!-- MODE: display the markers according to robot's position -->
+    <param name="/plemma/hsr/add_markers/track_robot" value="true" />
+    <node pkg="add_markers"       type="add_markers"
+          name="add_markers_node" output="screen" />
+</launch>
