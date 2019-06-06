@@ -1,8 +1,24 @@
 #include <ros/ros.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
+#include "home_service_robot_common.hpp"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+void FillInGoal(SimplifiedPose const & pose, move_base_msgs::MoveBaseGoal & goal)
+{
+    goal.target_pose.header.frame_id = "map";
+    goal.target_pose.header.stamp = ros::Time::now();
+    goal.target_pose.pose.position.x = pose.x;
+    goal.target_pose.pose.position.y = pose.y;
+    goal.target_pose.pose.position.z = 0.0;
+
+    double yaw_in_rad = 2.0 * pose.yaw_in_deg * constants::kPi / 180.0;
+
+    goal.target_pose.pose.orientation.x = 0.0;
+    goal.target_pose.pose.orientation.y = 0.0;
+    goal.target_pose.pose.orientation.z = std::sin(0.5 * yaw_in_rad);
+    goal.target_pose.pose.orientation.w = std::cos(0.5 * yaw_in_rad);
+}
 
 int main(int argc, char** argv)
 {
@@ -20,13 +36,16 @@ int main(int argc, char** argv)
         ROS_INFO("Waiting for the move_base action server to come up");
     }
 
+    // Check parameter configuration
+    ros::NodeHandle nh;
+    SimplifiedPose pickup;
+    SimplifiedPose dropoff;
+    if (!ReadPickUpAndDropOffZones(pickup, dropoff))
+        return 0;
+
     move_base_msgs::MoveBaseGoal pickup_goal;
 
-    pickup_goal.target_pose.header.frame_id = "map";
-    pickup_goal.target_pose.header.stamp = ros::Time::now();
-    pickup_goal.target_pose.pose.position.x = 2.0;
-    pickup_goal.target_pose.pose.position.y = 1.0;
-    pickup_goal.target_pose.pose.orientation.w = 1.0;
+    FillInGoal(pickup, pickup_goal);
 
     ROS_INFO("Sending pick-up position as first goal");
     action_client.sendGoal(pickup_goal);
@@ -52,12 +71,7 @@ int main(int argc, char** argv)
         ROS_INFO("Virtual object picked up");
 
         move_base_msgs::MoveBaseGoal dropoff_goal;
-
-        dropoff_goal.target_pose.header.frame_id = "map";
-        dropoff_goal.target_pose.header.stamp = ros::Time::now();
-        dropoff_goal.target_pose.pose.position.x = 0.0;
-        dropoff_goal.target_pose.pose.position.y = 3.0;
-        dropoff_goal.target_pose.pose.orientation.w = 1.0;
+        FillInGoal(dropoff, dropoff_goal);
 
         ROS_INFO("Sending drop-off position as second goal");
         action_client.sendGoal(dropoff_goal);
