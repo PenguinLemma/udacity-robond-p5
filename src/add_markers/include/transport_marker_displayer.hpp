@@ -1,10 +1,7 @@
 #pragma once
 
-#include <ros/ros.h>
-#include <visualization_msgs/Marker.h>
-
 #include "home_service_robot_common.hpp"
-#include "markers_common.hpp"
+#include "marker_displayer.hpp"
 
 class TransportMarkerDisplayer : public MarkerDisplayer
 {

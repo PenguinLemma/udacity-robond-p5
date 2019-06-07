@@ -8,7 +8,7 @@
 class MarkerDisplayer
 {
 public:
-    typedef int32 ActionType;
+    typedef int32_t ActionType;
 
     virtual void Display() = 0;
 
@@ -43,12 +43,10 @@ public:
         marker.lifetime = ros::Duration();
     }
 
-    void PublishMarker(visualization_msgs::Marker & marker, ActionType action)
+    void PublishMarker(ros::Publisher & publisher, visualization_msgs::Marker & marker, ActionType action)
     {
         marker.action = action;
         marker.header.stamp = ros::Time::now();
-        marker_publisher_.publish(marker);
+        publisher.publish(marker);
     }
-private:
-    ros::Publisher marker_publisher_;
 };

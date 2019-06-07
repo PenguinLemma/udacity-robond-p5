@@ -23,23 +23,23 @@ void TransportMarkerDisplayer::Display()
 
     // Create and fill in marker for pick-up zone
     visualization_msgs::Marker pickup_marker;
-    FillInMarker(pickup_pose_, pickup_marker);
+    FillInMarker(pickup_pose_, pickup_marker, "pickup_marker");
 
     ROS_INFO("Adding pick-up marker");
-    PublishMarker(pickup_marker, visualization_msgs::Marker::ADD);
+    PublishMarker(marker_publisher_, pickup_marker, visualization_msgs::Marker::ADD);
 
     ros::Duration(5.0).sleep();
 
     ROS_INFO("Deleting pick-up marker");
-    PublishMarker(pickup_marker, visualization_msgs::Marker::DELETE);
+    PublishMarker(marker_publisher_, pickup_marker, visualization_msgs::Marker::DELETE);
 
     // Wait while the pretended pick-up process happens
     ros::Duration(5.0).sleep();
 
     // Create and fill in marker for drop-off zone
     visualization_msgs::Marker dropoff_marker;
-    FillInMarker(dropoff_pose_, dropoff_marker);
+    FillInMarker(dropoff_pose_, dropoff_marker, "dropoff_marker");
 
     ROS_INFO("Adding drop-off marker");
-    PublishMarker(dropoff_marker, visualization_msgs::Marker::ADD);
+    PublishMarker(marker_publisher_, dropoff_marker, visualization_msgs::Marker::ADD);
 }

@@ -28,28 +28,8 @@ void TrackedTransportMarkerDisplayer::Display()
     }
 
     // Create and fill in marker for pick-up zone
-    visualization_msgs::Marker pickup_marker;
-    FillInMarker(pickup_pose_, pickup_marker);
-    PublishMarker(pickup_marker_, visualization_msgs::Marker::ADD);
+    PublishMarker(marker_publisher_, pickup_marker_, visualization_msgs::Marker::ADD);
     TrackRobot();
-}
-
-void TrackedTransportMarkerDisplayer::WaitUntilPickUpMarkerShouldBeRemoved()
-{
-    while(!has_robot_reached_pickup_zone_)
-    {
-        ros::Duration(0.5).sleep();
-    }
-    ROS_INFO("Robot reached pick-up zone");
-}
-
-void TrackedTransportMarkerDisplayer::WaitUntilDropOffMarkerShouldBeShown()
-{
-    while(!has_robot_reached_dropoff_zone_)
-    {
-        ros::Duration(0.5).sleep();
-    }
-    ROS_INFO("Robot reached drop-off zone");
 }
 
 void TrackedTransportMarkerDisplayer::TrackRobot()
@@ -70,14 +50,14 @@ void TrackedTransportMarkerDisplayer::TrackingCallback(nav_msgs::Odometry const 
         if(IsRobotInPose(odom, dropoff_pose_))
         {
             has_robot_reached_dropoff_zone_ = true;
-            PublishMarker(dropoff_marker_, visualization_msgs::Marker::ADD);
+            PublishMarker(marker_publisher_, dropoff_marker_, visualization_msgs::Marker::ADD);
             return;
         }
     }
     if (IsRobotInPose(odom, pickup_pose_))
     {
         has_robot_reached_pickup_zone_ = true;
-        PublishMarker(pickup_marker_, visualization_msgs::Marker::DELETE);
+        PublishMarker(marker_publisher_, pickup_marker_, visualization_msgs::Marker::DELETE);
     }
 }
 
