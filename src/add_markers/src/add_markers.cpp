@@ -25,14 +25,13 @@ int main(int argc, char** argv)
     // Display the markers
     if (track_robot)
     {
-        MarkerDisplayer displayer{pickup, dropoff};
+        RobotDependentMarkerDisplayer displayer{pickup, dropoff};
         displayer.Display();
     }
     else
     {
-        RobotDependentMarkerDisplayer displayer{pickup, dropoff};
+        MarkerDisplayer displayer{pickup, dropoff};
         displayer.Display();
     }
-
     return 0;
 }

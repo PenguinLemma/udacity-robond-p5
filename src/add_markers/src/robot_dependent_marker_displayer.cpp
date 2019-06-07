@@ -15,6 +15,7 @@ void RobotDependentMarkerDisplayer::WaitUntilPickUpMarkerShouldBeRemoved()
     {
         ros::Duration(0.5).sleep();
     }
+    ROS_INFO("Robot reached pick-up zone");
 }
 
 void RobotDependentMarkerDisplayer::WaitUntilDropOffMarkerShouldBeShown()
@@ -23,6 +24,7 @@ void RobotDependentMarkerDisplayer::WaitUntilDropOffMarkerShouldBeShown()
     {
         ros::Duration(0.5).sleep();
     }
+    ROS_INFO("Robot reached drop-off zone");
 }
 
 void RobotDependentMarkerDisplayer::TrackRobot()

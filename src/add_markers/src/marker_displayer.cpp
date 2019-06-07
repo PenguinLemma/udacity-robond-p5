@@ -25,11 +25,13 @@ void MarkerDisplayer::Display()
     visualization_msgs::Marker pickup_marker;
     FillInMarker(pickup_pose_, pickup_marker);
 
+    ROS_INFO("Adding pick-up marker");
     pickup_marker.action = visualization_msgs::Marker::ADD;
     marker_publisher_.publish(pickup_marker);
 
     WaitUntilPickUpMarkerShouldBeRemoved();
 
+    ROS_INFO("Deleting pick-up marker");
     pickup_marker.action = visualization_msgs::Marker::DELETE;
     marker_publisher_.publish(pickup_marker);
 
@@ -41,6 +43,7 @@ void MarkerDisplayer::Display()
     visualization_msgs::Marker dropoff_marker;
     FillInMarker(dropoff_pose_, dropoff_marker);
 
+    ROS_INFO("Adding drop-off marker");
     dropoff_marker.action = visualization_msgs::Marker::ADD;
     marker_publisher_.publish(dropoff_marker);
 }
