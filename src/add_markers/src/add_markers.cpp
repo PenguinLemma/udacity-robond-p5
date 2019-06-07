@@ -1,7 +1,7 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
-#include "marker_displayer.hpp"
-#include "robot_dependent_marker_displayer.hpp"
+#include "transport_marker_displayer.hpp"
+#include "tracked_transport_marker_displayer.hpp"
 #include "home_service_robot_common.hpp"
 
 int main(int argc, char** argv)
@@ -25,12 +25,12 @@ int main(int argc, char** argv)
     // Display the markers
     if (track_robot)
     {
-        RobotDependentMarkerDisplayer displayer{pickup, dropoff};
+        TrackedTransportMarkerDisplayer displayer{pickup, dropoff};
         displayer.Display();
     }
     else
     {
-        MarkerDisplayer displayer{pickup, dropoff};
+        TransportMarkerDisplayer displayer{pickup, dropoff};
         displayer.Display();
     }
     return 0;

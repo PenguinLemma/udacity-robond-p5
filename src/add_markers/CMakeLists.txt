@@ -43,7 +43,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(add_markers_node src/add_markers.cpp src/marker_displayer.cpp src/robot_dependent_marker_displayer.cpp)
+add_executable(add_markers_node src/add_markers.cpp src/transport_marker_displayer.cpp src/tracked_transport_marker_displayer.cpp)
 
 
 ## Specify libraries to link a library or executable target against
