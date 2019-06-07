@@ -9,6 +9,6 @@
     <param name="/plemma/hsr/dropoff_pose_yaw_deg" value="30" />
     <!-- MODE: display the markers independently of robot's position -->
     <param name="/plemma/hsr/add_markers/track_robot" value="false" />
-    <node pkg="add_markers"       type="add_markers"
-          name="add_markers_node" output="screen" />
+    <node pkg="add_markers"       type="add_markers_node"
+          name="add_markers" output="screen" />
 </launch>
