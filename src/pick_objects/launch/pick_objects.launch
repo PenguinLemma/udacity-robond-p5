@@ -7,6 +7,6 @@
     <param name="/plemma/hsr/dropoff_pose_x"       value="0.0" />
     <param name="/plemma/hsr/dropoff_pose_y"       value="3.0" />
     <param name="/plemma/hsr/dropoff_pose_yaw_deg" value="30" />
-    <node pkg="pick_objects"       type="pick_objects"
-          name="pick_objects_node" output="screen" />
+    <node pkg="pick_objects"       type="pick_objects_node"
+          name="pick_objects" output="screen" />
 </launch>
