@@ -9,7 +9,7 @@ constexpr double kMarkerRedComponent = 0.0;
 constexpr double kMarkerGreenComponent = 0.0;
 constexpr double kMarkerBlueComponent = 1.0;
 constexpr double kMarkerColorAlpha = 1.0;
-constexpr double kSquaredDistanceThreshold = 0.04;
+constexpr double kSquaredDistanceThreshold = 0.2;
 } // namespace constants
 
 struct SimplifiedPose
