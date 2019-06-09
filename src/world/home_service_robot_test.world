@@ -4,7 +4,7 @@
         <!-- Building -->
         <include>
             <uri>model://h</uri>
-            <pose>0 0 0 0 0 0</pose>
+            <pose>0 -0.8 0 0 0 0</pose>
             <static>1</static>
         </include>
 
@@ -12,7 +12,7 @@
         <include>
             <uri>model://red_box</uri>
             <name>red_box</name>
-            <pose>-2.5 0.4 0.25 0 0 0</pose>
+            <pose>-2.5 -0.5 0.75 0 0 0</pose>
         </include>
 
         <!-- Light -->
@@ -106,7 +106,7 @@
         </spherical_coordinates>
         <gui fullscreen='0'>
             <camera name='user_camera'>
-                <pose>0 -7 18 0 1.2 1.57</pose>
+                <pose>0 -0.8 19.5 0 1.57 1.57</pose>
                 <view_controller>orbit</view_controller>
                 <projection_type>perspective</projection_type>
             </camera>
